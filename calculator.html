@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator - FitWiki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .calc-box {
+            background-color: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 28px;
+            max-width: 400px;
+            margin-bottom: 24px;
+        }
+        .calc-box h2 { font-size: 20px; margin-bottom: 18px; }
+        .result-box {
+            background-color: #111;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 18px;
+            margin-top: 14px;
+            display: none;
+        }
+        .result-box h3 { font-size: 32px; color: orange; }
+        .result-box p { color: #aaa; font-size: 14px; margin-top: 6px; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <header>
+        <h1>BMI and Calorie Calculator</h1>
+        <p>Find your Body Mass Index and daily calorie needs.</p>
+    </header>
+
+    <main>
+        <section style="display: flex; gap: 24px; flex-wrap: wrap;">
+
+            <article class="calc-box">
+                <h2>BMI Calculator</h2>
+                <div class="form-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" placeholder="e.g. 175">
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="e.g. 70">
+                </div>
+                <button class="btn" onclick="calcBMI()">Calculate BMI</button>
+                <div class="result-box" id="bmi-result">
+                    <h3 id="bmi-value"></h3>
+                    <p id="bmi-cat" style="font-size:16px;font-weight:bold;margin-top:4px"></p>
+                    <p id="bmi-info"></p>
+                </div>
+            </article>
+
+            <article class="calc-box">
+                <h2>TDEE Calculator</h2>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="e.g. 20">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="t-height">Height (cm)</label>
+                    <input type="number" id="t-height" placeholder="e.g. 175">
+                </div>
+                <div class="form-group">
+                    <label for="t-weight">Weight (kg)</label>
+                    <input type="number" id="t-weight" placeholder="e.g. 70">
+                </div>
+                <div class="form-group">
+                    <label for="activity">Activity Level</label>
+                    <select id="activity">
+                        <option value="1.2">Sedentary (no exercise)</option>
+                        <option value="1.375">Light (1-3 days/week)</option>
+                        <option value="1.55" selected>Moderate (3-5 days/week)</option>
+                        <option value="1.725">Active (6-7 days/week)</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="calcTDEE()">Calculate Calories</button>
+                <div class="result-box" id="tdee-result">
+                    <h3 id="tdee-value"></h3>
+                    <p>calories per day to maintain your current weight</p>
+                    <div id="tdee-goals" style="margin-top:12px;font-size:14px;color:#aaa;line-height:2.2"></div>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        renderNav('bmi');
+
+        function calcBMI() {
+            const h = parseFloat(document.getElementById('height').value) / 100;
+            const w = parseFloat(document.getElementById('weight').value);
+            if (!h || !w) { alert('Please enter height and weight'); return; }
+            const bmi = (w / (h * h)).toFixed(1);
+            let cat, info, color;
+            if (bmi < 18.5)      { cat = 'Underweight';   info = 'Eat more calories and focus on gaining weight.'; color = '#4a9eff'; }
+            else if (bmi < 25)   { cat = 'Normal Weight'; info = 'You are in a healthy weight range. Keep it up!'; color = '#4caf50'; }
+            else if (bmi < 30)   { cat = 'Overweight';    info = 'Try a slight calorie deficit with regular exercise.'; color = 'orange'; }
+            else                 { cat = 'Obese';          info = 'Talk to a doctor or nutritionist for a proper plan.'; color = '#f44336'; }
+            document.getElementById('bmi-value').textContent = 'BMI: ' + bmi;
+            document.getElementById('bmi-cat').textContent = cat;
+            document.getElementById('bmi-cat').style.color = color;
+            document.getElementById('bmi-info').textContent = info;
+            document.getElementById('bmi-result').style.display = 'block';
+        }
+
+        function calcTDEE() {
+            const age = parseFloat(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const h = parseFloat(document.getElementById('t-height').value);
+            const w = parseFloat(document.getElementById('t-weight').value);
+            const act = parseFloat(document.getElementById('activity').value);
+            if (!age || !h || !w) { alert('Please fill all fields'); return; }
+            let bmr = gender === 'male'
+                ? 10 * w + 6.25 * h - 5 * age + 5
+                : 10 * w + 6.25 * h - 5 * age - 161;
+            const tdee = Math.round(bmr * act);
+            document.getElementById('tdee-value').textContent = tdee + ' kcal';
+            document.getElementById('tdee-goals').innerHTML =
+                `To lose fat: ${tdee - 400} kcal/day<br>
+                 To maintain: ${tdee} kcal/day<br>
+                 To gain muscle: ${tdee + 300} kcal/day`;
+            document.getElementById('tdee-result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

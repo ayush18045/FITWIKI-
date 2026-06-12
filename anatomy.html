@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Muscle Anatomy - FitWiki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .layout { display: grid; grid-template-columns: 210px 1fr; gap: 20px; }
+        .muscle-btn { display: block; width: 100%; text-align: left; padding: 11px 14px; background: #222; border: 1px solid #333; border-radius: 6px; color: #ddd; cursor: pointer; font-size: 14px; font-family: Arial, sans-serif; margin-bottom: 8px; }
+        .muscle-btn.active, .muscle-btn:hover { background: #2a1800; border-color: orange; color: orange; }
+        .detail { background: #222; border: 1px solid #333; border-radius: 8px; padding: 22px; }
+        .detail h2 { font-size: 22px; margin-bottom: 12px; }
+        .detail-label { color: orange; font-size: 12px; margin-top: 14px; margin-bottom: 5px; }
+        .detail p, .detail li { color: #aaa; font-size: 14px; line-height: 1.7; }
+        .detail ul { padding-left: 18px; line-height: 2; }
+        .tip { background: #2a1800; border: 1px solid #553300; border-radius: 6px; padding: 13px; margin-top: 10px; font-size: 14px; color: #ddd; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <header>
+        <h1>Muscle Anatomy</h1>
+        <p>Click on a muscle group to learn about it.</p>
+    </header>
+
+    <main>
+        <section>
+            <div class="layout">
+                <aside>
+                    <button class="muscle-btn active" onclick="show('chest',this)">💪 Chest</button>
+                    <button class="muscle-btn" onclick="show('back',this)">🔙 Back</button>
+                    <button class="muscle-btn" onclick="show('shoulders',this)">🔝 Shoulders</button>
+                    <button class="muscle-btn" onclick="show('biceps',this)">💪 Biceps</button>
+                    <button class="muscle-btn" onclick="show('triceps',this)">🔱 Triceps</button>
+                    <button class="muscle-btn" onclick="show('quads',this)">🦵 Quads</button>
+                    <button class="muscle-btn" onclick="show('hamstrings',this)">🦵 Hamstrings</button>
+                    <button class="muscle-btn" onclick="show('glutes',this)">🍑 Glutes</button>
+                    <button class="muscle-btn" onclick="show('core',this)">🎯 Core and Abs</button>
+                    <button class="muscle-btn" onclick="show('calves',this)">🦶 Calves</button>
+                </aside>
+                <article class="detail" id="detail-box">
+                    <p style="color:#666">Select a muscle group on the left.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        renderNav('anatomy');
+        const data = {
+            chest:{name:'Chest (Pectorals)',func:'Pushes arms forward and across the body. Used in all pushing movements.',exercises:['Bench Press','Push-Ups','Incline Dumbbell Press','Cable Flyes','Chest Dip'],tip:'Focus on squeezing your chest at the top of every rep, not just moving the weight.'},
+            back:{name:'Back (Latissimus Dorsi)',func:'Pulls arms down and back. Gives the V-taper shape to your body.',exercises:['Pull-Ups','Lat Pulldown','Bent-Over Row','Seated Row'],tip:'Imagine putting your shoulder blades into your back pockets. This cue activates the lats properly.'},
+            shoulders:{name:'Shoulders (Deltoids)',func:'Three heads — front, side, rear. Moves the arm in all directions.',exercises:['Overhead Press','Lateral Raise','Front Raise','Face Pull'],tip:'Most people train front delts too much from pressing. Add lateral raises and face pulls for balanced shoulders.'},
+            biceps:{name:'Biceps',func:'Bends the elbow. The curling motion.',exercises:['Barbell Curl','Dumbbell Curl','Hammer Curl','Cable Curl'],tip:'Keep elbows fixed at your sides. If they move forward, you are using momentum not biceps.'},
+            triceps:{name:'Triceps',func:'Straightens the elbow. Makes up about two thirds of upper arm size.',exercises:['Tricep Dip','Tricep Pushdown','Skull Crusher','Close Grip Bench'],tip:'Most people only train biceps. But triceps are bigger — train them equally for bigger arms.'},
+            quads:{name:'Quadriceps',func:'Extends the knee. Front of the thigh. Main muscle used in squatting.',exercises:['Squat','Leg Press','Leg Extension','Hack Squat'],tip:'Knees should track over your toes during all quad exercises. Never let them cave inward.'},
+            hamstrings:{name:'Hamstrings',func:'Bends the knee and extends the hip. Back of the thigh.',exercises:['Romanian Deadlift','Leg Curl','Nordic Curl'],tip:'Hamstrings are often ignored and are a common injury spot. Always include one dedicated hamstring exercise per leg day.'},
+            glutes:{name:'Glutes',func:'Largest muscle in the body. Extends and rotates the hip.',exercises:['Hip Thrust','Glute Bridge','Romanian Deadlift','Sumo Squat'],tip:'Squeeze glutes hard at the very top of hip thrusts. That is where most of the growth stimulus is.'},
+            core:{name:'Core and Abs',func:'Stabilizes the spine and transfers force between the upper and lower body.',exercises:['Plank','Crunches','Leg Raise','Russian Twist'],tip:'Abs show when body fat is low enough. Diet matters more than crunches for visible abs.'},
+            calves:{name:'Calves',func:'Points the foot downward. Important for jumping and running.',exercises:['Standing Calf Raise','Seated Calf Raise','Jump Rope'],tip:'Calves respond best to high reps (15 to 25) and full range of motion. Go all the way up and fully stretch at the bottom.'},
+        };
+        function show(id, btn) {
+            document.querySelectorAll('.muscle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const m = data[id];
+            document.getElementById('detail-box').innerHTML = `
+                <h2>${m.name}</h2>
+                <p class="detail-label">What it does</p>
+                <p>${m.func}</p>
+                <p class="detail-label">Best Exercises</p>
+                <ul>${m.exercises.map(e => `<li>${e}</li>`).join('')}</ul>
+                <p class="detail-label">Beginner Tip</p>
+                <div class="tip">${m.tip}</div>`;
+        }
+        show('chest', document.querySelector('.muscle-btn'));
+    </script>
+</body>
+</html>

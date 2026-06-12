@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Injury and Recovery - FitWiki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .label { color: orange; font-size: 11px; margin-top: 12px; margin-bottom: 3px; }
+        .card p { color: #aaa; font-size: 14px; line-height: 1.6; }
+        .card ul { padding-left: 16px; color: #aaa; font-size: 14px; line-height: 2; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <header>
+        <h1>Injury and Recovery</h1>
+        <p>Train smart and stay in the gym long-term.</p>
+    </header>
+
+    <main>
+        <section>
+            <p class="disclaimer"><strong>Disclaimer:</strong> This page is for general information only. If you have an actual injury, see a doctor or physiotherapist before continuing to train.</p>
+
+            <div>
+                <button class="tab-btn active" onclick="showTab('prevention',this)">Injury Prevention</button>
+                <button class="tab-btn" onclick="showTab('recovery',this)">Recovery Guide</button>
+                <button class="tab-btn" onclick="showTab('common',this)">Common Injuries</button>
+            </div>
+
+            <article class="tab-content active" id="prevention">
+                <div class="grid-2">
+                    <div class="card"><h3>Warm Up Properly</h3><p>Never skip warming up. 5 minutes of light cardio and dynamic stretches before lifting reduces injury risk significantly.</p></div>
+                    <div class="card"><h3>Perfect Form First</h3><p>Ego lifting is the number one cause of gym injuries. Master form before adding weight. If your form breaks down, the weight is too heavy.</p></div>
+                    <div class="card"><h3>Add Weight Slowly</h3><p>Don't jump 10kg in one session. Add 2.5kg per week for upper body and 5kg for lower body. Slow progress is safe progress.</p></div>
+                    <div class="card"><h3>Work on Mobility</h3><p>Poor hip, ankle, and shoulder mobility causes compensations that lead to injury. Stretch tight areas regularly, especially if you sit a lot during the day.</p></div>
+                    <div class="card"><h3>Listen to Your Body</h3><p>Muscle soreness is normal. Sharp or joint pain is not. Stop any exercise that causes sharp or worsening pain during the set.</p></div>
+                    <div class="card"><h3>Take Rest Days</h3><p>Overtraining causes injuries over time. Take at least 1 to 2 rest days per week. Every 6 to 8 weeks, take an easier lower volume week.</p></div>
+                </div>
+            </article>
+
+            <article class="tab-content" id="recovery">
+                <div class="grid-2">
+                    <div class="card"><h3>Sleep</h3><p>Growth hormone is released during deep sleep. 7 to 9 hours of sleep is the single most important recovery tool available. No supplement replaces it.</p></div>
+                    <div class="card"><h3>Eat for Recovery</h3><p>Have protein within 2 hours after training. Anti-inflammatory foods like turmeric, ginger, and fish oil can reduce soreness and speed healing.</p></div>
+                    <div class="card"><h3>Active Recovery</h3><p>Light movement on rest days — a 20 minute walk, easy cycling, or yoga — increases blood flow and helps reduce next-day soreness.</p></div>
+                    <div class="card"><h3>Ice and Heat</h3>
+                        <p class="label">Ice — first 48 hours after injury</p>
+                        <p>Reduces swelling and pain. Wrap in cloth, do not apply directly to skin. 15 to 20 minutes at a time.</p>
+                        <p class="label">Heat — after 48 hours or for chronic tightness</p>
+                        <p>Improves blood flow and relaxes tight muscles. Good for long-standing muscle tightness.</p>
+                    </div>
+                    <div class="card"><h3>Foam Rolling</h3><p>Slowly roll over tight muscles and pause on sore spots for 20 to 30 seconds. Good for quads, calves, and upper back. Best done after training or on rest days.</p></div>
+                    <div class="card"><h3>Hydration</h3><p>Dehydration slows recovery. Drink 3 to 4 litres daily. More if you train hard or it is hot weather where you sweat more.</p></div>
+                </div>
+            </article>
+
+            <article class="tab-content" id="common">
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>Shin Splints</h3>
+                        <p class="label">Cause</p><p>Too much running too soon, hard surfaces, worn out shoes.</p>
+                        <p class="label">Symptoms</p><p>Dull ache along the inner shinbone during or after running.</p>
+                        <p class="label">Recovery</p><p>Rest from running. Ice for 15 minutes. Stretch calves. Wear proper shoes. Return to running gradually.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Rotator Cuff Strain</h3>
+                        <p class="label">Cause</p><p>Overhead pressing with bad form, too much shoulder volume, muscle imbalances.</p>
+                        <p class="label">Symptoms</p><p>Pain when raising arm overhead or during pressing movements.</p>
+                        <p class="label">Recovery</p><p>Rest from overhead pressing. Light band external rotations to strengthen the cuff. See a physio if pain continues.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Knee Pain</h3>
+                        <p class="label">Cause</p><p>Squatting with knees caving in, weak glutes, tight IT band.</p>
+                        <p class="label">Symptoms</p><p>Pain around or under the kneecap when squatting or going down stairs.</p>
+                        <p class="label">Recovery</p><p>Reduce squat depth temporarily. Strengthen glutes. Improve ankle mobility. Ice after training sessions.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Lower Back Pain</h3>
+                        <p class="label">Cause</p><p>Rounding lower back on deadlifts or squats, weak core, sitting too long daily.</p>
+                        <p class="label">Symptoms</p><p>Dull ache or sharp pain in lower back after lifting. Morning stiffness.</p>
+                        <p class="label">Recovery</p><p>Rest from heavy lifting. Strengthen core with planks. Stretch hip flexors. Film yourself to check deadlift form.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        renderNav('injury');
+        function showTab(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>

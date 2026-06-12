@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workout Library - FitWiki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .muscle-tag { color: orange; font-size: 12px; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-top: 8px; }
+        .beginner { background-color: #1a3a1a; color: #4caf50; }
+        .intermediate { background-color: #1a2a3a; color: #4a9eff; }
+        .card { cursor: pointer; }
+        dialog {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 580px;
+            width: 90%;
+            color: white;
+        }
+        dialog::backdrop { background: rgba(0,0,0,0.8); }
+        dialog h2 { font-size: 24px; margin-bottom: 10px; }
+        dialog p { color: #aaa; font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
+        dialog ol, dialog ul { padding-left: 18px; color: #aaa; font-size: 14px; line-height: 2; }
+        dialog .close-btn { float: right; background: none; border: none; color: #aaa; font-size: 20px; cursor: pointer; }
+        .label { color: orange; font-size: 12px; margin-top: 14px; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <header>
+        <h1>Workout Library</h1>
+        <p>Click on any exercise card to see instructions and tips.</p>
+    </header>
+
+    <main>
+        <section>
+            <div style="margin-bottom: 16px;">
+                <button class="filter-btn active" onclick="filterEx('all',this)">All</button>
+                <button class="filter-btn" onclick="filterEx('chest',this)">Chest</button>
+                <button class="filter-btn" onclick="filterEx('back',this)">Back</button>
+                <button class="filter-btn" onclick="filterEx('legs',this)">Legs</button>
+                <button class="filter-btn" onclick="filterEx('shoulders',this)">Shoulders</button>
+                <button class="filter-btn" onclick="filterEx('arms',this)">Arms</button>
+                <button class="filter-btn" onclick="filterEx('core',this)">Core</button>
+            </div>
+            <div class="grid-3" id="ex-grid"></div>
+        </section>
+    </main>
+
+    <!-- HTML5 dialog element instead of custom modal div -->
+    <dialog id="ex-dialog">
+        <button class="close-btn" onclick="document.getElementById('ex-dialog').close()">✕</button>
+        <div id="dialog-content"></div>
+    </dialog>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        renderNav('workouts');
+
+        const exercises = [
+            {name:'Bench Press',muscle:'chest',level:'beginner',desc:'Main chest exercise. Builds overall chest size and strength.',steps:['Lie flat on bench','Grip bar slightly wider than shoulders','Lower bar to chest slowly','Press up until arms are straight'],mistakes:['Flaring elbows too wide','Bouncing bar off chest','Not keeping feet flat']},
+            {name:'Push-Ups',muscle:'chest',level:'beginner',desc:'Bodyweight exercise for chest, shoulders, and triceps.',steps:['Start in plank position','Lower chest to the ground','Keep body straight throughout','Push back up to start'],mistakes:['Hips sagging down','Elbows flaring out','Not going full range']},
+            {name:'Incline Dumbbell Press',muscle:'chest',level:'intermediate',desc:'Targets the upper chest.',steps:['Set bench to 30-45 degrees','Press dumbbells from shoulder level','Squeeze chest at the top','Lower slowly with control'],mistakes:['Too steep angle','Uneven pressing','Rushing the movement']},
+            {name:'Pull-Ups',muscle:'back',level:'intermediate',desc:'Best exercise for back width.',steps:['Hang from bar at shoulder width','Pull chest up to the bar','Squeeze back at the top','Lower fully before next rep'],mistakes:['Not fully extending at bottom','Swinging body','Doing partial reps']},
+            {name:'Deadlift',muscle:'back',level:'intermediate',desc:'Works entire back and legs together.',steps:['Stand with feet hip-width apart','Bend and grip the bar','Keep back straight throughout','Stand up by pushing through heels'],mistakes:['Rounding lower back','Bar drifting forward','Looking up too much']},
+            {name:'Bent-Over Row',muscle:'back',level:'intermediate',desc:'Builds thickness in the mid back.',steps:['Bend forward at 45 degrees','Pull bar to lower chest','Squeeze shoulder blades together','Lower with control'],mistakes:['Standing too upright','Using momentum','Not squeezing at top']},
+            {name:'Squat',muscle:'legs',level:'beginner',desc:'Most important leg exercise.',steps:['Feet shoulder-width apart','Bar rests on upper traps','Squat down to parallel','Drive through heels to stand'],mistakes:['Knees caving inward','Heels coming up','Leaning too far forward']},
+            {name:'Romanian Deadlift',muscle:'legs',level:'intermediate',desc:'Targets hamstrings and glutes.',steps:['Stand with bar at hip height','Push hips back as you lower bar','Feel stretch in hamstrings','Return to standing position'],mistakes:['Rounding the back','Bending knees too much','Going too fast']},
+            {name:'Leg Press',muscle:'legs',level:'beginner',desc:'Machine exercise for quads.',steps:['Sit in the machine','Place feet shoulder-width on platform','Lower to 90 degrees','Push platform back up'],mistakes:['Locking knees at top','Lifting lower back off seat','Feet too narrow']},
+            {name:'Overhead Press',muscle:'shoulders',level:'beginner',desc:'Main shoulder pressing exercise.',steps:['Hold bar at shoulder width','Press directly overhead','Lock out arms at top','Lower back to chin level'],mistakes:['Pressing forward not up','Arching lower back','Grip too wide']},
+            {name:'Lateral Raise',muscle:'shoulders',level:'beginner',desc:'Isolates side shoulder for width.',steps:['Hold dumbbells at sides','Raise arms to shoulder height','Slight bend in elbows','Lower slowly'],mistakes:['Using too heavy weight','Shrugging shoulders','Swinging the weight']},
+            {name:'Bicep Curl',muscle:'arms',level:'beginner',desc:'Classic bicep isolation exercise.',steps:['Stand holding dumbbells','Keep elbows fixed at sides','Curl up to shoulder height','Lower slowly'],mistakes:['Swinging torso','Moving elbows forward','Rushing the rep']},
+            {name:'Tricep Dip',muscle:'arms',level:'beginner',desc:'Bodyweight exercise for triceps.',steps:['Grip parallel bars','Lower until elbows reach 90 degrees','Push back up to start','Keep torso slightly forward'],mistakes:['Too much forward lean','Partial range of motion','Flaring elbows out']},
+            {name:'Plank',muscle:'core',level:'beginner',desc:'Core stability exercise.',steps:['Rest on forearms and toes','Body in a straight line','Hold the position','Breathe normally throughout'],mistakes:['Hips too high','Hips sagging','Holding breath']},
+            {name:'Crunches',muscle:'core',level:'beginner',desc:'Basic ab exercise.',steps:['Lie on back with knees bent','Hands behind head lightly','Curl shoulders up off ground','Lower back down slowly'],mistakes:['Pulling on neck','Using momentum','Not breathing properly']},
+        ];
+
+        function renderGrid(arr) {
+            document.getElementById('ex-grid').innerHTML = arr.map((e, i) => `
+                <article class="card" onclick="showDetail(${exercises.indexOf(e)})">
+                    <p class="muscle-tag">${e.muscle.toUpperCase()}</p>
+                    <h3 style="margin-top:6px">${e.name}</h3>
+                    <p>${e.desc}</p>
+                    <span class="badge ${e.level}">${e.level}</span>
+                </article>`).join('');
+        }
+
+        function filterEx(muscle, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGrid(muscle === 'all' ? exercises : exercises.filter(e => e.muscle === muscle));
+        }
+
+        function showDetail(i) {
+            const e = exercises[i];
+            document.getElementById('dialog-content').innerHTML = `
+                <p class="muscle-tag">${e.muscle.toUpperCase()}</p>
+                <h2>${e.name}</h2>
+                <span class="badge ${e.level}">${e.level}</span>
+                <p style="margin-top:14px">${e.desc}</p>
+                <p class="label">HOW TO DO IT</p>
+                <ol>${e.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                <p class="label">COMMON MISTAKES</p>
+                <ul>${e.mistakes.map(m => `<li>${m}</li>`).join('')}</ul>`;
+            document.getElementById('ex-dialog').showModal();
+        }
+
+        renderGrid(exercises);
+    </script>
+</body>
+</html>

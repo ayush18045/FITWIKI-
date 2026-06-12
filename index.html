@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FitWiki - Fitness Encyclopedia</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero {
+            background-color: #111;
+            padding: 60px 30px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        .hero h1 { font-size: 40px; margin-bottom: 10px; }
+        .hero h1 span { color: orange; }
+        .hero p { color: #aaa; font-size: 16px; margin-bottom: 24px; }
+        .hero-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: orange;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 30px;
+            background-color: #111;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+        .stats h3 { font-size: 28px; color: orange; }
+        .stats p { color: #aaa; font-size: 13px; margin-top: 4px; }
+        .card-icon { font-size: 28px; margin-bottom: 10px; }
+        .card a { color: orange; font-size: 13px; text-decoration: none; display: block; margin-top: 12px; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to <span>FitWiki</span></h1>
+            <p>Your free encyclopedia for gym, nutrition, and fitness knowledge</p>
+            <a href="workouts.html" class="hero-btn">Start Exploring</a>
+        </section>
+
+        <section class="stats">
+            <div><h3>500+</h3><p>Exercises</p></div>
+            <div><h3>200+</h3><p>Foods</p></div>
+            <div><h3>100+</h3><p>Glossary Terms</p></div>
+            <div><h3>15</h3><p>Pages</p></div>
+        </section>
+
+        <section style="padding: 30px;">
+            <h2 class="section-title">Browse Topics</h2>
+            <div class="grid-3">
+                <article class="card"><div class="card-icon">🏋️</div><h3>Workout Library</h3><p>Exercises filtered by muscle group with full instructions.</p><a href="workouts.html">Go →</a></article>
+                <article class="card"><div class="card-icon">🥗</div><h3>Nutrition Guide</h3><p>Proteins, carbs, fats and calories explained simply.</p><a href="nutrition.html">Go →</a></article>
+                <article class="card"><div class="card-icon">🍎</div><h3>Food Encyclopedia</h3><p>Macros for 200+ common foods in a searchable table.</p><a href="food.html">Go →</a></article>
+                <article class="card"><div class="card-icon">💊</div><h3>Supplements</h3><p>Whey, Creatine, BCAA and more — explained clearly.</p><a href="supplements.html">Go →</a></article>
+                <article class="card"><div class="card-icon">📅</div><h3>Workout Plans</h3><p>Beginner, intermediate, and advanced weekly plans.</p><a href="plans.html">Go →</a></article>
+                <article class="card"><div class="card-icon">🥦</div><h3>Diet Plans</h3><p>Bulking, cutting and maintenance meal templates.</p><a href="diet.html">Go →</a></article>
+                <article class="card"><div class="card-icon">🫀</div><h3>Muscle Anatomy</h3><p>Learn about each muscle group and what exercises train it.</p><a href="anatomy.html">Go →</a></article>
+                <article class="card"><div class="card-icon">📊</div><h3>BMI Calculator</h3><p>Calculate your BMI and daily calorie needs.</p><a href="calculator.html">Go →</a></article>
+                <article class="card"><div class="card-icon">❌</div><h3>Fitness Myths</h3><p>Common gym myths busted with actual facts.</p><a href="myths.html">Go →</a></article>
+                <article class="card"><div class="card-icon">📖</div><h3>Glossary</h3><p>A to Z of gym terms explained in plain language.</p><a href="glossary.html">Go →</a></article>
+                <article class="card"><div class="card-icon">🔰</div><h3>Beginner's Guide</h3><p>Never been to a gym? Start right here.</p><a href="beginner.html">Go →</a></article>
+                <article class="card"><div class="card-icon">🩹</div><h3>Injury and Recovery</h3><p>How to prevent injuries and recover properly.</p><a href="injury.html">Go →</a></article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge &mdash; Made by students for everyone</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>renderNav('home')</script>
+</body>
+</html>

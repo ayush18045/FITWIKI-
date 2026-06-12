@@ -1,0 +1,208 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* ── NAV ── */
+nav {
+    background-color: #111;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+nav .logo {
+    color: orange;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav ul a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav ul a:hover { color: orange; }
+nav ul a.active { color: orange; }
+
+/* ── HEADER ── */
+header {
+    padding: 40px 30px 30px;
+    border-bottom: 1px solid #333;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #aaa;
+    font-size: 15px;
+}
+
+/* ── MAIN / SECTION ── */
+main {
+    padding: 30px;
+}
+
+section {
+    padding: 30px;
+}
+
+h2.section-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: orange;
+}
+
+/* ── ARTICLE ── */
+article h2 {
+    font-size: 20px;
+    color: orange;
+    margin: 36px 0 10px;
+}
+
+article h2:first-child { margin-top: 0; }
+
+article p {
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+article ul, article ol {
+    padding-left: 18px;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 2;
+    margin-bottom: 10px;
+}
+
+/* ── CARDS ── */
+.card {
+    background-color: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.card h3 { font-size: 17px; margin-bottom: 8px; }
+.card p { color: #aaa; font-size: 14px; line-height: 1.6; }
+
+/* ── GRIDS ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+
+/* ── BUTTONS ── */
+.btn {
+    padding: 10px 20px;
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+.btn:hover { background-color: #cc8800; }
+
+.filter-btn {
+    padding: 7px 14px;
+    background-color: #222;
+    color: #aaa;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    margin: 0 6px 8px 0;
+}
+.filter-btn.active, .filter-btn:hover {
+    background-color: orange;
+    color: white;
+    border-color: orange;
+}
+
+.tab-btn {
+    padding: 9px 22px;
+    background-color: #222;
+    color: #aaa;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    margin-right: 8px;
+    margin-bottom: 20px;
+}
+.tab-btn.active { background-color: orange; color: white; border-color: orange; }
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; }
+th { background-color: #111; color: orange; padding: 12px; text-align: left; font-size: 13px; }
+td { padding: 11px 12px; border-bottom: 1px solid #2a2a2a; font-size: 14px; color: #ddd; }
+
+/* ── FORM ── */
+.form-group { margin-bottom: 16px; }
+
+label {
+    display: block;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    background-color: #222;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+textarea { height: 110px; resize: vertical; }
+
+/* ── DISCLAIMER ── */
+.disclaimer {
+    background-color: #2a1f00;
+    border: 1px solid #664400;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 13px;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+/* ── FOOTER ── */
+footer {
+    background-color: #111;
+    padding: 18px 30px;
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+    border-top: 1px solid #222;
+}
