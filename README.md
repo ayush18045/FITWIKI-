@@ -14,3 +14,4 @@ A fitness encyclopedia website built using HTML, CSS and JavaScript.
 - HTML5
 - CSS3
 - JavaScript
+- WEBISTE LINK-https://ayush18045.github.io/FITWIKI-/
