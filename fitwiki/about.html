@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About - FitWiki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .team-card { background: #222; border: 1px solid #333; border-radius: 8px; padding: 22px; text-align: center; }
+        .avatar { font-size: 40px; margin-bottom: 10px; }
+        .success { background: #1a3a1a; border: 1px solid #2a5a2a; border-radius: 6px; padding: 12px; color: #4caf50; margin-top: 14px; display: none; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <header>
+        <h1>About FitWiki</h1>
+        <p>A student project that aims to make fitness knowledge free and simple for everyone.</p>
+    </header>
+
+    <main>
+        <section>
+            <article class="card" style="max-width:600px;margin-bottom:28px">
+                <h3>What is FitWiki?</h3>
+                <p>FitWiki is a free fitness encyclopedia website. We cover workouts, nutrition, supplements, anatomy, and more. No memberships, no ads, just information. This website was made as a web development mini project by second semester B.Tech Computer Engineering students at NMIMS.</p>
+            </article>
+
+            <h2 class="section-title">Meet the Team</h2>
+            <div style="display:flex;gap:16px;max-width:380px;margin-bottom:40px">
+                <div class="team-card" style="flex:1">
+                    <div class="avatar">👨‍💻</div>
+                    <h3>Team Member 1</h3>
+                    <p style="color:#aaa;font-size:13px">Frontend and Design</p>
+                </div>
+                <div class="team-card" style="flex:1">
+                    <div class="avatar">👨‍💻</div>
+                    <h3>Team Member 2</h3>
+                    <p style="color:#aaa;font-size:13px">Content and Backend</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Send Feedback</h2>
+            <div style="max-width:480px">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="topic">Topic</label>
+                    <select id="topic">
+                        <option>Suggest a new topic</option>
+                        <option>Report wrong information</option>
+                        <option>General feedback</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="msg">Message</label>
+                    <textarea id="msg" placeholder="Write your message here..."></textarea>
+                </div>
+                <button class="btn" onclick="submitForm()">Send Message</button>
+                <p class="success" id="success-msg">Thanks for your feedback! We will look into it.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge &mdash; NMIMS B.Tech Project</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        renderNav('about');
+        function submitForm() {
+            const n = document.getElementById('name').value;
+            const e = document.getElementById('email').value;
+            const m = document.getElementById('msg').value;
+            if (!n || !e || !m) { alert('Please fill all fields'); return; }
+            document.getElementById('success-msg').style.display = 'block';
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('msg').value = '';
+        }
+    </script>
+</body>
+</html>

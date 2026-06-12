@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog - FitWiki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .blog-card { cursor: pointer; }
+        .blog-tag { color: orange; font-size: 11px; margin-bottom: 8px; }
+        .blog-card h3 { font-size: 17px; margin-bottom: 8px; line-height: 1.4; }
+        .blog-card p { color: #aaa; font-size: 13px; line-height: 1.6; }
+        .read-link { color: orange; font-size: 13px; margin-top: 12px; display: inline-block; }
+        #article-view { display: none; }
+        .back-btn { background: #222; border: 1px solid #333; color: #aaa; padding: 9px 18px; border-radius: 5px; cursor: pointer; font-size: 13px; font-family: Arial, sans-serif; margin-bottom: 22px; }
+        .back-btn:hover { border-color: orange; color: orange; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <div id="blog-list">
+        <header>
+            <h1>Blog and Articles</h1>
+            <p>Guides on training, nutrition, and fitness topics.</p>
+        </header>
+        <main>
+            <section>
+                <div class="grid-2" id="blog-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="article-view">
+        <main>
+            <section style="max-width: 700px;">
+                <button class="back-btn" onclick="showList()">← Back to Articles</button>
+                <p class="blog-tag" id="art-tag"></p>
+                <h1 style="font-size:26px;margin-bottom:18px" id="art-title"></h1>
+                <article id="art-body"></article>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        renderNav('blog');
+
+        const articles = [
+            {tag:'Training',title:'Top 10 Exercises for Beginners',excerpt:'These 10 exercises cover every muscle group and will build your foundation.',
+            body:`<p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:12px">When you first start, you don't need 50 exercises. You need to master the basics — movements that work the most muscles and are safe to learn.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">The List</h2><ul style="padding-left:18px;color:#aaa;font-size:14px;line-height:2.2"><li>Squat — builds quads, glutes, hamstrings all at once</li><li>Deadlift — best exercise for back and overall strength</li><li>Bench Press — builds chest, shoulders, triceps</li><li>Pull-Ups or Lat Pulldown — best for back width</li><li>Overhead Press — builds shoulder size</li><li>Bent-Over Row — adds back thickness</li><li>Romanian Deadlift — best hamstring exercise</li><li>Plank — core stability foundation</li><li>Dips — great chest and tricep builder</li><li>Bicep Curl — direct arm training</li></ul><h2 style="font-size:18px;color:orange;margin:22px 0 10px">How to Program Them</h2><p style="color:#aaa;font-size:14px;line-height:1.8">Do exercises 1 to 7 as compound movements, 3 sets of 8 to 10 reps. Add planks and curls at the end. Train 3 days a week, full body. This simple routine will produce results for 6 to 12 months of consistent training.</p>`},
+            {tag:'Supplements',title:'Everything About Creatine',excerpt:'Creatine is the most researched supplement in sports science. Here is the full breakdown.',
+            body:`<p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:12px">Creatine is a natural compound found in your muscles and in foods like red meat. Your body produces about 1g per day. As a supplement, you take 3 to 5g daily to fully saturate your muscle stores.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">How Does It Work?</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:12px">Creatine is stored as phosphocreatine in muscles. During high-intensity exercise, it helps replenish ATP faster — meaning you can do 1 to 2 more reps before hitting failure. Over time, this adds up to more muscle and strength.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Is It Safe?</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:12px">Yes. Creatine is the most studied supplement in history. The kidney damage myth has been proven wrong many times. It is safe for healthy people even with long-term use.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">How to Take It</h2><ul style="padding-left:18px;color:#aaa;font-size:14px;line-height:2.2"><li>Take 3 to 5g daily — timing does not matter much</li><li>No loading phase needed — just take it every day</li><li>Take it on rest days too for consistent levels</li><li>Creatine monohydrate is the cheapest and best studied form</li></ul>`},
+            {tag:'Training',title:'How to Build a Workout Routine from Scratch',excerpt:'Stop following random YouTube workouts. Build your own program instead.',
+            body:`<h2 style="font-size:18px;color:orange;margin:0 0 10px">Step 1 — Define Your Goal</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">Build muscle? Lose fat? Get stronger? Your goal determines your training frequency, rep ranges, and exercise selection. Be honest about what you actually want.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Step 2 — Choose Frequency</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">How many days per week can you realistically commit to? 3 days is great for beginners. 4 to 5 for intermediate. Consistency matters more than frequency.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Step 3 — Pick Your Split</h2><ul style="padding-left:18px;color:#aaa;font-size:14px;line-height:2.2"><li>3 days — Full Body</li><li>4 days — Upper and Lower Split</li><li>5 to 6 days — Push Pull Legs</li></ul><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Step 4 — Progressive Overload</h2><p style="color:#aaa;font-size:14px;line-height:1.8">Write down your weights every session. Next session, try one more rep or add 2.5kg. This simple habit is the secret to long-term progress.</p>`},
+            {tag:'Nutrition',title:'Understanding Macros for Fat Loss',excerpt:'Counting calories is a start. Understanding macros is what gets real results.',
+            body:`<h2 style="font-size:18px;color:orange;margin:0 0 10px">What Are Macros?</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">Macros are the three nutrients that make up all your calories — Protein, Carbohydrates, and Fat. Protein and carbs have 4 calories per gram. Fat has 9 calories per gram.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Why Macros Matter for Fat Loss</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">You can lose weight eating anything in a calorie deficit. But tracking macros, especially protein, ensures you lose fat and not muscle. Most people who lose weight without tracking protein end up smaller but still soft.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Practical Tips</h2><ul style="padding-left:18px;color:#aaa;font-size:14px;line-height:2.2"><li>Track your food for at least 4 weeks to build awareness</li><li>Have protein at every meal</li><li>Don't drop carbs too low if you are training hard</li><li>Consistency matters more than perfection</li></ul>`},
+            {tag:'Recovery',title:'Why Sleep is the Best Performance Tool',excerpt:'No training program or supplement can compensate for bad sleep.',
+            body:`<h2 style="font-size:18px;color:orange;margin:0 0 10px">What Happens While You Sleep</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">Growth hormone — the main hormone for muscle repair — is released during deep sleep. Without enough sleep, this process slows down a lot.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Effects of Bad Sleep</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">Even one bad night can reduce strength by 8 to 10 percent. Chronic poor sleep raises cortisol, lowers testosterone, slows muscle repair, and increases injury risk.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Simple Sleep Improvements</h2><ul style="padding-left:18px;color:#aaa;font-size:14px;line-height:2.2"><li>Go to bed and wake at the same time every day including weekends</li><li>Keep your room dark and cool</li><li>Avoid screens 30 minutes before bed</li><li>Avoid caffeine after 2 PM</li></ul>`},
+            {tag:'Nutrition',title:'Eating for Muscle Gain — A Beginner Guide',excerpt:'Muscle does not come from training alone. Your diet is equally important.',
+            body:`<h2 style="font-size:18px;color:orange;margin:0 0 10px">The Calorie Surplus</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">To build muscle you need to eat more than you burn. A lean bulk surplus is 200 to 300 calories above your TDEE. Enough to build muscle without gaining too much fat.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Protein is Essential</h2><p style="color:#aaa;font-size:14px;line-height:1.8;margin-bottom:14px">Aim for 1.6 to 2.2g of protein per kg of bodyweight. Protein provides the amino acids needed to build new muscle. Without it, extra calories just become fat.</p><h2 style="font-size:18px;color:orange;margin:22px 0 10px">Sample Bulking Day</h2><ul style="padding-left:18px;color:#aaa;font-size:14px;line-height:2.2"><li>Breakfast — 4 eggs, oats, banana</li><li>Lunch — 200g chicken, rice, vegetables</li><li>Pre-workout — whey shake and banana</li><li>Dinner — paneer or fish, roti, dal</li><li>Before bed — glass of milk or yogurt</li></ul>`},
+        ];
+
+        document.getElementById('blog-grid').innerHTML = articles.map((a, i) => `
+            <article class="card blog-card" onclick="showArticle(${i})">
+                <p class="blog-tag">${a.tag}</p>
+                <h3>${a.title}</h3>
+                <p>${a.excerpt}</p>
+                <span class="read-link">Read Article →</span>
+            </article>`).join('');
+
+        function showArticle(i) {
+            const a = articles[i];
+            document.getElementById('art-tag').textContent = a.tag;
+            document.getElementById('art-title').textContent = a.title;
+            document.getElementById('art-body').innerHTML = a.body;
+            document.getElementById('blog-list').style.display = 'none';
+            document.getElementById('article-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showList() {
+            document.getElementById('blog-list').style.display = 'block';
+            document.getElementById('article-view').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

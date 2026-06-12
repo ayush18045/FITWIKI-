@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Glossary - FitWiki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .alpha-nav { margin-bottom: 24px; }
+        .alpha-btn { width: 34px; height: 34px; background: #222; border: 1px solid #333; border-radius: 4px; color: #aaa; cursor: pointer; font-size: 14px; font-family: Arial, sans-serif; margin: 3px; }
+        .alpha-btn:hover { background: orange; color: white; border-color: orange; }
+        .letter-group { margin-bottom: 28px; }
+        .letter-heading { font-size: 30px; color: orange; font-weight: bold; border-bottom: 1px solid #333; padding-bottom: 6px; margin-bottom: 12px; }
+        .term { padding: 12px 0; border-bottom: 1px solid #2a2a2a; }
+        .term h4 { font-size: 15px; margin-bottom: 3px; }
+        .term .cat { color: orange; font-size: 11px; }
+        .term p { color: #aaa; font-size: 14px; line-height: 1.6; margin-top: 4px; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar"></nav>
+
+    <header>
+        <h1>Glossary</h1>
+        <p>A to Z of gym and fitness terms explained simply.</p>
+    </header>
+
+    <main>
+        <section>
+            <nav class="alpha-nav" id="alpha-nav" aria-label="Alphabet navigation"></nav>
+            <div id="glossary-content"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>FitWiki &mdash; Free Fitness Knowledge</p>
+    </footer>
+
+    <script src="nav.js"></script>
+    <script>
+        renderNav('glossary');
+        const terms = [
+            {l:'A',term:'Anabolism',cat:'Biology',def:'The process of building muscle tissue. Anabolic state means your body is repairing and growing.'},
+            {l:'A',term:'AMRAP',cat:'Training',def:'As Many Reps As Possible. Do as many reps as you can in a set time.'},
+            {l:'B',term:'BMI',cat:'Health',def:'Body Mass Index. A measure of body weight relative to height used to categorize weight status.'},
+            {l:'B',term:'BMR',cat:'Nutrition',def:'Basal Metabolic Rate. Calories your body burns at complete rest just to keep you alive.'},
+            {l:'C',term:'Catabolism',cat:'Biology',def:'Breakdown of muscle tissue. Happens with overtraining or not eating enough. Opposite of anabolism.'},
+            {l:'C',term:'Compound Movement',cat:'Training',def:'Exercise that works multiple muscle groups at once. Examples: squat, deadlift, bench press.'},
+            {l:'C',term:'Creatine',cat:'Supplement',def:'Natural compound in muscles. As a supplement, it increases strength and power. Most researched supplement in sports science.'},
+            {l:'D',term:'DOMS',cat:'Recovery',def:'Delayed Onset Muscle Soreness. Muscle pain felt 24 to 72 hours after a workout. Completely normal.'},
+            {l:'D',term:'Drop Set',cat:'Training',def:'Do a set to failure, then reduce weight immediately and keep going without rest.'},
+            {l:'F',term:'Failure',cat:'Training',def:'The point where you cannot do another rep with proper form. Not needed every single set.'},
+            {l:'G',term:'Glycogen',cat:'Nutrition',def:'Stored carbohydrates in muscles and liver. The main fuel for high-intensity training.'},
+            {l:'H',term:'Hypertrophy',cat:'Training',def:'Increase in muscle size from training. Achieved through progressive overload, protein, and rest.'},
+            {l:'I',term:'Isolation Exercise',cat:'Training',def:'Exercise targeting one specific muscle group. Examples: bicep curl, lateral raise.'},
+            {l:'M',term:'Macros',cat:'Nutrition',def:'Short for macronutrients. The three main nutrients: protein, carbohydrates, and fat.'},
+            {l:'M',term:'Mind-Muscle Connection',cat:'Training',def:'Consciously focusing on the muscle you are training during a rep. Proven to increase muscle activation.'},
+            {l:'O',term:'One Rep Max',cat:'Training',def:'Maximum weight you can lift for exactly one rep with good form. Used to plan training loads.'},
+            {l:'P',term:'Progressive Overload',cat:'Training',def:'Gradually increasing weight, reps, or sets over time. The main principle behind all strength and muscle gains.'},
+            {l:'R',term:'Rep',cat:'Training',def:'One complete movement of an exercise. Short for repetition.'},
+            {l:'S',term:'Set',cat:'Training',def:'A group of consecutive reps. Three sets of ten means doing ten reps three times with rest between each.'},
+            {l:'S',term:'Superset',cat:'Training',def:'Doing two exercises back to back with no rest. Saves time and increases training intensity.'},
+            {l:'T',term:'TDEE',cat:'Nutrition',def:'Total Daily Energy Expenditure. Total calories you burn in a day including all activity.'},
+            {l:'V',term:'Volume',cat:'Training',def:'Total work done — sets multiplied by reps multiplied by weight. Higher volume generally leads to more muscle growth.'},
+        ];
+        const grouped = {};
+        terms.forEach(t => { if (!grouped[t.l]) grouped[t.l] = []; grouped[t.l].push(t); });
+        const letters = Object.keys(grouped).sort();
+        document.getElementById('alpha-nav').innerHTML = letters.map(l =>
+            `<button class="alpha-btn" onclick="document.getElementById('l-${l}').scrollIntoView({behavior:'smooth'})">${l}</button>`).join('');
+        document.getElementById('glossary-content').innerHTML = letters.map(l => `
+            <section class="letter-group" id="l-${l}">
+                <div class="letter-heading">${l}</div>
+                ${grouped[l].map(t => `
+                    <article class="term">
+                        <span class="cat">${t.cat}</span>
+                        <h4>${t.term}</h4>
+                        <p>${t.def}</p>
+                    </article>`).join('')}
+            </section>`).join('');
+    </script>
+</body>
+</html>
